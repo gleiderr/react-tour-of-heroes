@@ -1,15 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-
-import { Hero } from './hero';
-import { MessageService } from './message.service';
-
 const TIME = 50;
 
-export class HeroService {
+export default class HeroService {
   heroes = [
     { id: 11, name: 'Dr Nice' },
     { id: 12, name: 'Narco' },
@@ -25,24 +16,20 @@ export class HeroService {
 
   heroesUrl = 'api/heroes'; // URL to web api
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-
   constructor() {}
   /*private http: HttpClient,
     private messageService: MessageService*/
 
   /** GET heroes from the server */
   getHeroes() {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => resolve(this.heroes), TIME);
     });
   }
 
   /** GET hero by id. Will 404 if id not found */
   getHero(id) {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const hero = this.heroes[id];
       setTimeout(
         () =>
@@ -56,7 +43,7 @@ export class HeroService {
 
   /* GET heroes whose name contains search term */
   searchHeroes(term) {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!term.trim()) resolve([]); // if not search term, return empty hero array.
 
@@ -76,7 +63,7 @@ export class HeroService {
   addHero(hero) {
     const { name } = hero;
 
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
         const id = Math.max(...this.heroes.map((hero) => hero.id)) + 1;
         this.heroes.push({ id, name });
@@ -90,7 +77,7 @@ export class HeroService {
   /** DELETE: delete the hero from the server */
   deleteHero(hero) {
     const { id } = hero;
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const hero = this.heroes[id];
       setTimeout(() => {
         if (!hero) this.handleError(reject, `deleteHero id=${id}`);
@@ -105,7 +92,7 @@ export class HeroService {
   // /** PUT: update the hero on the server */
   updateHero(hero) {
     const { id, name } = hero;
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const hero = this.heroes[id];
       setTimeout(() => {
         if (!hero) this.handleError(reject, `updateHero id=${id}`);
