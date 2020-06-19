@@ -53,25 +53,22 @@ export default class HeroService {
   //////// Save methods //////////
 
   /** POST: add a new hero to the server */
-  static addHero(hero) {
-    const { name } = hero;
-
+  static addHero(name) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const id = Math.max(...heroes.map((hero) => hero.id)) + 1;
         heroes.push({ id, name });
 
-        this.log(`added hero w/ id=${id}`);
-        resolve();
+        HeroService.log(`added hero w/ id=${id}`);
+        resolve(heroes);
       }, TIME);
     });
   }
 
   /** DELETE: delete the hero from the server */
-  static deleteHero(hero) {
-    const { id } = hero;
-    return new Promise((resolve, reject) => {
-      const hero = heroes[id];
+  static deleteHero(id) {
+    return new Promise(async (resolve, reject) => {
+      const hero = await HeroService.getHero(id);
       setTimeout(() => {
         if (!hero) this.handleError(reject, `deleteHero id=${id}`);
 
@@ -106,7 +103,7 @@ export default class HeroService {
   static handleError(reject, error) {
     console.error(error);
 
-    this.log(`failed: ${error}`);
+    HeroService.log(`failed: ${error}`);
 
     reject(error);
   }

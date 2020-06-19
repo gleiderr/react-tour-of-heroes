@@ -10,30 +10,14 @@ import styles, {
 import classNames from 'classnames';
 
 export function Heroes() {
-  const [heroes] = useHeroes();
+  const [heroes, addHero, deleteHero] = useHeroes();
   const [name, setName] = useState('');
 
   const change = ({ target: { value: name } }) => setName(name);
-  const add = () => {};
-  const del = () => {};
-
-  const HeroesList = () =>
-    heroes.map(({ id, name }) => (
-      <li key={id}>
-        <Link to={`/detail/${id}`}>
-          <span className={badge}>{id}</span> {name}
-        </Link>
-        <button
-          className={classNames(button, styles.delete)}
-          title='delete hero'
-          onClick={() => del(id)}
-        >
-          x
-        </button>
-      </li>
-    ));
-
-  console.log(styles);
+  const add = () => {
+    addHero(name);
+    setName('');
+  };
 
   return (
     <>
@@ -50,8 +34,25 @@ export function Heroes() {
       </div>
 
       <ul className={classHeroes}>
-        <HeroesList />
+        <HeroesList heroes={heroes} deleteHero={deleteHero} />
       </ul>
     </>
   );
+}
+
+function HeroesList({ heroes, deleteHero }) {
+  return heroes.map(({ id, name }) => (
+    <li key={id}>
+      <Link to={`/detail/${id}`}>
+        <span className={badge}>{id}</span> {name}
+      </Link>
+      <button
+        className={classNames(button, styles.delete)}
+        title='delete hero'
+        onClick={() => deleteHero(id)}
+      >
+        x
+      </button>
+    </li>
+  ));
 }
