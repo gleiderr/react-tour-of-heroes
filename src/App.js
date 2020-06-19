@@ -1,9 +1,11 @@
 import React from 'react';
-import './App.css';
 
 import { Dashboard } from './Dashboard';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { HeroDetail } from './HeroDetail';
+import { Heroes } from './Heroes';
+
+import './App.css';
 
 function App() {
   const title = 'Tour of Heroes';
@@ -18,6 +20,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Dashboard />
+          </Route>
+          <Route path='/heroes'>
+            <Heroes />
           </Route>
           <Route path='/dashboard'>
             <Dashboard />

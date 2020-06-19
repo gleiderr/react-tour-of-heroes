@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useHero } from './controller';
-import './styles/hero-detail.css';
+import { button, input, label } from './styles/HeroDetail.module.css';
 
 export function HeroDetail() {
   const { id } = useParams();
@@ -22,13 +22,22 @@ export function HeroDetail() {
             {hero.id}
           </div>
           <div>
-            <label>
+            <label className={label}>
               name:
-              <input value={hero.name} placeholder='name' onChange={change} />
+              <input
+                className={input}
+                value={hero.name}
+                placeholder='name'
+                onChange={change}
+              />
             </label>
           </div>
-          <button onClick={history.goBack}>go back</button>
-          <button onClick={save}>save</button>
+          <button className={button} onClick={history.goBack}>
+            go back
+          </button>
+          <button className={button} onClick={save}>
+            save
+          </button>
         </div>
       )}
     </>
