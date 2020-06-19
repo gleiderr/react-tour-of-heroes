@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useHero } from './controller';
+import './styles/hero-detail.css';
 
 export function HeroDetail() {
   const { id } = useParams();

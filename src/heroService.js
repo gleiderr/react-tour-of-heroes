@@ -22,7 +22,7 @@ export default class HeroService {
     private messageService: MessageService*/
 
   /** GET heroes from the server */
-  getHeroes() {
+  static getHeroes() {
     return new Promise((resolve, reject) => {
       setTimeout(() => resolve(heroes), TIME);
     });
@@ -41,7 +41,7 @@ export default class HeroService {
   }
 
   /* GET heroes whose name contains search term */
-  searchHeroes(term) {
+  static searchHeroes(term) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!term.trim()) resolve([]); // if not search term, return empty hero array.
@@ -59,7 +59,7 @@ export default class HeroService {
   //////// Save methods //////////
 
   /** POST: add a new hero to the server */
-  addHero(hero) {
+  static addHero(hero) {
     const { name } = hero;
 
     return new Promise((resolve, reject) => {
@@ -74,7 +74,7 @@ export default class HeroService {
   }
 
   /** DELETE: delete the hero from the server */
-  deleteHero(hero) {
+  static deleteHero(hero) {
     const { id } = hero;
     return new Promise((resolve, reject) => {
       const hero = heroes[id];
@@ -109,7 +109,7 @@ export default class HeroService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  handleError(reject, error) {
+  static handleError(reject, error) {
     console.error(error);
 
     this.log(`failed: ${error}`);
@@ -118,7 +118,7 @@ export default class HeroService {
   }
 
   // /** Log a HeroService message with the MessageService */
-  log(message) {
+  static log(message) {
     this.messageService.add(`HeroService: ${message}`);
   }
 }
