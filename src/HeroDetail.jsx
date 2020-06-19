@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import HeroService from './heroService';
-
-const useHero = (id) => {
-  const [hero, setHero] = useState();
-
-  useEffect(() => {
-    (async () => {
-      const h = await HeroService.getHero(id);
-      setHero(h);
-    })();
-  }, [id]);
-
-  return [hero, setHero, HeroService.updateHero];
-};
+import { useHero } from './controller';
 
 export function HeroDetail() {
   const { id } = useParams();
-  const [hero, setHero, updateHero] = useHero(+id);
   const history = useHistory();
 
-  const change = ({ target: { value } }) =>
-    setHero({ id: hero.id, name: value });
+  const [hero, setHero, updateHero] = useHero(+id);
 
+  const change = ({ target: { value: name } }) => setHero({ id: +id, name });
   const save = () => updateHero(hero);
 
   return (
