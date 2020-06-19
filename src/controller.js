@@ -25,3 +25,18 @@ export const useHero = (id) => {
 
   return [hero, setHero, HeroService.updateHero];
 };
+
+export const useSearch = (name) => {
+  const [heroes, setHeroes] = useState([]);
+
+  useEffect(() => {
+    if (name) {
+      (async () => {
+        const heroes = await HeroService.searchHeroes(name);
+        setHeroes(heroes);
+      })();
+    }
+  }, [name]);
+
+  return [heroes];
+};

@@ -1,5 +1,7 @@
+import MessageService from './messageService';
+
 const TIME = 50;
-const heroes = [
+let heroes = [
   { id: 11, name: 'Dr Nice' },
   { id: 12, name: 'Narco' },
   { id: 13, name: 'Bombasto' },
@@ -13,14 +15,6 @@ const heroes = [
 ];
 
 export default class HeroService {
-  heroesUrl = 'api/heroes'; // URL to web api
-
-  constructor(messageService) {
-    this.messageService = messageService;
-  }
-  /*private http: HttpClient,
-    private messageService: MessageService*/
-
   /** GET heroes from the server */
   static getHeroes() {
     return new Promise((resolve, reject) => {
@@ -48,8 +42,8 @@ export default class HeroService {
 
         const matches = heroes.filter((hero) => hero.name.includes(term));
 
-        if (matches.length) this.log(`found heroes matching "${term}"`);
-        else this.log(`no heroes matching "${term}"`);
+        if (matches.length) HeroService.log(`found heroes matching "${term}"`);
+        else HeroService.log(`no heroes matching "${term}"`);
 
         resolve(matches);
       }, TIME);
@@ -119,6 +113,6 @@ export default class HeroService {
 
   // /** Log a HeroService message with the MessageService */
   static log(message) {
-    this.messageService.add(`HeroService: ${message}`);
+    MessageService.add(`HeroService: ${message}`);
   }
 }

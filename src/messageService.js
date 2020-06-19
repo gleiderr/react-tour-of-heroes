@@ -1,11 +1,10 @@
+let messages = [];
 export default class MessageService {
-  messages = [];
-
-  add(message) {
-    this.messages.push(message);
+  static add(message) {
+    messages.push(message);
   }
 
-  clear() {
-    this.messages = [];
+  static clear() {
+    messages = [];
   }
 }
