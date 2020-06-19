@@ -1,41 +1,40 @@
 const TIME = 50;
+const heroes = [
+  { id: 11, name: 'Dr Nice' },
+  { id: 12, name: 'Narco' },
+  { id: 13, name: 'Bombasto' },
+  { id: 14, name: 'Celeritas' },
+  { id: 15, name: 'Magneta' },
+  { id: 16, name: 'RubberMan' },
+  { id: 17, name: 'Dynama' },
+  { id: 18, name: 'Dr IQ' },
+  { id: 19, name: 'Magma' },
+  { id: 20, name: 'Tornado' },
+];
 
 export default class HeroService {
-  heroes = [
-    { id: 11, name: 'Dr Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' },
-  ];
-
   heroesUrl = 'api/heroes'; // URL to web api
 
-  constructor() {}
+  constructor(messageService) {
+    this.messageService = messageService;
+  }
   /*private http: HttpClient,
     private messageService: MessageService*/
 
   /** GET heroes from the server */
   getHeroes() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(this.heroes), TIME);
+      setTimeout(() => resolve(heroes), TIME);
     });
   }
 
   /** GET hero by id. Will 404 if id not found */
-  getHero(id) {
+  static getHero(id) {
     return new Promise((resolve, reject) => {
-      const hero = this.heroes[id];
+      const hero = heroes.find(({ id: id_hero }) => id_hero === id);
       setTimeout(
         () =>
-          hero
-            ? resolve(this.heroes[id])
-            : this.handleError(reject, `getHero id=${id}`),
+          hero ? resolve(hero) : this.handleError(reject, `getHero id=${id}`),
         TIME
       );
     });
@@ -47,7 +46,7 @@ export default class HeroService {
       setTimeout(() => {
         if (!term.trim()) resolve([]); // if not search term, return empty hero array.
 
-        const matches = this.heroes.filter((hero) => hero.name.includes(term));
+        const matches = heroes.filter((hero) => hero.name.includes(term));
 
         if (matches.length) this.log(`found heroes matching "${term}"`);
         else this.log(`no heroes matching "${term}"`);
@@ -65,8 +64,8 @@ export default class HeroService {
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const id = Math.max(...this.heroes.map((hero) => hero.id)) + 1;
-        this.heroes.push({ id, name });
+        const id = Math.max(...heroes.map((hero) => hero.id)) + 1;
+        heroes.push({ id, name });
 
         this.log(`added hero w/ id=${id}`);
         resolve();
@@ -78,28 +77,28 @@ export default class HeroService {
   deleteHero(hero) {
     const { id } = hero;
     return new Promise((resolve, reject) => {
-      const hero = this.heroes[id];
+      const hero = heroes[id];
       setTimeout(() => {
         if (!hero) this.handleError(reject, `deleteHero id=${id}`);
 
-        this.heroes = this.heroes.filter((hero) => hero.id != id);
+        heroes = heroes.filter((hero) => hero.id !== id);
 
-        resolve(this.heroes);
+        resolve(heroes);
       }, TIME);
     });
   }
 
   // /** PUT: update the hero on the server */
-  updateHero(hero) {
+  static updateHero(hero) {
     const { id, name } = hero;
-    return new Promise((resolve, reject) => {
-      const hero = this.heroes[id];
+    return new Promise(async (resolve, reject) => {
+      const hero = await HeroService.getHero(id);
       setTimeout(() => {
         if (!hero) this.handleError(reject, `updateHero id=${id}`);
 
-        this.heroes[id].name = name;
+        hero.name = name;
 
-        resolve(this.heroes[id]);
+        resolve(hero);
       }, TIME);
     });
   }

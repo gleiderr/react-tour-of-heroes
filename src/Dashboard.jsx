@@ -14,7 +14,7 @@ export function Dashboard({ heroService }) {
 
   const links = topHeroes.map((hero, id) => (
     <Link key={hero.id} className='col-1-4' to={`/detail/${hero.id}`}>
-      <div class='module hero'>
+      <div className='module hero'>
         <h4>{hero.name}</h4>
       </div>
     </Link>
@@ -23,7 +23,7 @@ export function Dashboard({ heroService }) {
   return (
     <>
       <h3>Top Heroes</h3>
-      <div class='grid grid-pad'>{links}</div>
+      <div className='grid grid-pad'>{links}</div>
 
       <app-hero-search></app-hero-search>
     </>
