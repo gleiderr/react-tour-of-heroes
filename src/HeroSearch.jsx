@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from './controller';
-import './styles/hero-search.css';
+import styles, { ul, li, a } from './styles/HeroSearch.module.css';
+import classnames from 'classnames';
 
 export function HeroSearch() {
   const [name, setName] = useState();
@@ -11,8 +12,10 @@ export function HeroSearch() {
 
   const Heroes = () =>
     heroes.map((hero) => (
-      <li key={hero.id}>
-        <Link to={`/detail/${hero.id}`}>{hero.name}</Link>
+      <li key={hero.id} className={li}>
+        <Link className={a} to={`/detail/${hero.id}`}>
+          {hero.name}
+        </Link>
       </li>
     ));
 
@@ -22,9 +25,9 @@ export function HeroSearch() {
         <label htmlFor='search-box'>Hero Search</label>
       </h4>
 
-      <input id='search-box' onChange={search} />
+      <input className={styles['search-box']} onChange={search} />
 
-      <ul className='search-result'>
+      <ul className={classnames(styles['search-result'], ul)}>
         <Heroes />
       </ul>
     </div>
