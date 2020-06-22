@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import HeroService from './heroService';
+import MessageService from './messageService';
 
 export const useHeroes = () => {
   const [heroes, setHeroes] = useState([]);
@@ -50,4 +51,14 @@ export const useSearch = (name) => {
   }, [name]);
 
   return [heroes];
+};
+
+export const useMessages = () => {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    MessageService.onChange((messages) => setMessages([...messages]));
+  });
+
+  return [messages, MessageService.clear];
 };

@@ -6,6 +6,7 @@ import { HeroDetail } from './HeroDetail';
 import { Heroes } from './Heroes';
 
 import { a, h1, nav } from './styles/App.module.css';
+import { Messages } from './Messages';
 
 function App() {
   const title = 'Tour of Heroes';
@@ -35,6 +36,7 @@ function App() {
             <HeroDetail></HeroDetail>
           </Route>
         </Switch>
+        <Messages />
       </Router>
     </>
   );

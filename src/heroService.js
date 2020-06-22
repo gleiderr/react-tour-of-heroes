@@ -18,7 +18,10 @@ export default class HeroService {
   /** GET heroes from the server */
   static getHeroes() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(heroes), TIME);
+      setTimeout(() => {
+        this.log('fetched heroes');
+        resolve(heroes);
+      }, TIME);
     });
   }
 
@@ -26,11 +29,14 @@ export default class HeroService {
   static getHero(id) {
     return new Promise((resolve, reject) => {
       const hero = heroes.find(({ id: id_hero }) => id_hero === id);
-      setTimeout(
-        () =>
-          hero ? resolve(hero) : this.handleError(reject, `getHero id=${id}`),
-        TIME
-      );
+      setTimeout(() => {
+        if (hero) {
+          this.log(`fetched hero id=${id}`);
+          resolve(hero);
+        } else {
+          this.handleError(reject, `getHero id=${id}`);
+        }
+      }, TIME);
     });
   }
 

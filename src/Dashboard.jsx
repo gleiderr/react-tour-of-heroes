@@ -9,8 +9,6 @@ export function Dashboard() {
   const [heroes] = useHeroes();
   const topHeroes = heroes.slice(1, 5);
 
-  console.log(styles);
-
   const TopHeroes = () =>
     topHeroes.map((hero) => (
       <Link key={hero.id} className={classNames(styles['col-1-4'], a)} to={`/detail/${hero.id}`}>
