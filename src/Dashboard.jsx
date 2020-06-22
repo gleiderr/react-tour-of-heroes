@@ -1,9 +1,9 @@
+import classNames from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useHeroes } from './controller';
-import styles, { a, h3, h4, module, grid } from './styles/Dashboard.module.css';
+import { useHeroes } from './controller/controller';
 import { HeroSearch } from './HeroSearch';
-import classNames from 'classnames';
+import styles, { a, grid, h3, h4, module } from './styles/Dashboard.module.css';
 
 export function Dashboard() {
   const [heroes] = useHeroes();

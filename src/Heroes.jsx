@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
-import { useHeroes } from './controller';
-import { Link } from 'react-router-dom';
-import styles, { badge, button, heroes as classHeroes } from './styles/Heroes.module.css';
 import classNames from 'classnames';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useHeroes } from './controller/controller';
+import styles, { badge, button, heroes as classHeroes } from './styles/Heroes.module.css';
 
 export function Heroes() {
   const [heroes, addHero, deleteHero] = useHeroes();

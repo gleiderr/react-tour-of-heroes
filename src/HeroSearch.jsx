@@ -1,8 +1,8 @@
+import classnames from 'classnames';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSearch } from './controller';
-import styles, { ul, li, a } from './styles/HeroSearch.module.css';
-import classnames from 'classnames';
+import { useSearch } from './controller/controller';
+import styles, { a, li, ul } from './styles/HeroSearch.module.css';
 
 export function HeroSearch() {
   const [name, setName] = useState();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useHero } from './controller';
+import { useHero } from './controller/controller';
 import { button, input, label } from './styles/HeroDetail.module.css';
 
 export function HeroDetail() {
@@ -24,12 +24,7 @@ export function HeroDetail() {
           <div>
             <label className={label}>
               name:
-              <input
-                className={input}
-                value={hero.name}
-                placeholder='name'
-                onChange={change}
-              />
+              <input className={input} value={hero.name} placeholder='name' onChange={change} />
             </label>
           </div>
           <button className={button} onClick={history.goBack}>

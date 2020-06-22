@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import HeroService from './heroService';
-import MessageService from './messageService';
+import { useEffect, useState } from 'react';
+import HeroService from '../model/heroService';
+import MessageService from '../model/messageService';
 
 export const useHeroes = () => {
   const [heroes, setHeroes] = useState([]);
