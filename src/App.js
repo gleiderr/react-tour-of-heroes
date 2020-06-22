@@ -5,17 +5,21 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { HeroDetail } from './HeroDetail';
 import { Heroes } from './Heroes';
 
-import './App.css';
+import { a, h1, nav } from './styles/App.module.css';
 
 function App() {
   const title = 'Tour of Heroes';
   return (
     <>
       <Router>
-        <h1>{title}</h1>
-        <nav>
-          <Link to='/dashboard'>Dashboard</Link>
-          <Link to='/heroes'>Heroes</Link>
+        <h1 className={h1}>{title}</h1>
+        <nav className={nav}>
+          <Link className={a} to='/dashboard'>
+            Dashboard
+          </Link>
+          <Link className={a} to='/heroes'>
+            Heroes
+          </Link>
         </nav>
         <Switch>
           <Route exact path='/'>
