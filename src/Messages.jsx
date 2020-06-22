@@ -8,7 +8,7 @@ export function Messages() {
 
   const MessageList = () => messages.map((message, id) => <div key={id}>{message}</div>);
 
-  return !messages ? null : (
+  return !messages || !messages.length ? null : (
     <div>
       <h2 className={h2}>Messages</h2>
       <button className={classnames(clear, button)} onClick={clearMessages}>

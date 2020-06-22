@@ -74,12 +74,13 @@ export default class HeroService {
   /** DELETE: delete the hero from the server */
   static deleteHero(id) {
     return new Promise(async (resolve, reject) => {
-      const hero = await HeroService.getHero(id);
+      const hero = heroes.find(({ id: id_hero }) => id_hero === id);
       setTimeout(() => {
         if (!hero) this.handleError(reject, `deleteHero id=${id}`);
 
         heroes = heroes.filter((hero) => hero.id !== id);
 
+        HeroService.log(`deleted hero id=${id}`);
         resolve(heroes);
       }, TIME);
     });
@@ -89,12 +90,13 @@ export default class HeroService {
   static updateHero(hero) {
     const { id, name } = hero;
     return new Promise(async (resolve, reject) => {
-      const hero = await HeroService.getHero(id);
+      const hero = heroes.find(({ id: id_hero }) => id_hero === id);
       setTimeout(() => {
         if (!hero) this.handleError(reject, `updateHero id=${id}`);
 
         hero.name = name;
 
+        HeroService.log(`updated hero id=${id}`);
         resolve(hero);
       }, TIME);
     });
